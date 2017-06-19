@@ -43,9 +43,6 @@ public class Main
                 String searchQuery = in.nextLine();
                 searchQueries[j] = searchQuery;
 
-                //check against searchEngine list -> remove that search engine (if not found already removed - don't care?)
-                    //if search engine list is empty -> switch and repopulate list
-
                 if (searchEngineList.size() > 0)
                 {
                     Iterator itr = searchEngineList.iterator();
