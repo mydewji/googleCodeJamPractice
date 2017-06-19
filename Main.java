@@ -31,48 +31,42 @@ public class Main
             }
 
             int numberOfQueries = in.nextInt();
+            int numberOfSwitches = 0;
+            ArrayList<String> searchEngineList = new ArrayList<String>(Arrays.asList(searchEngines));
+
+
+
             String[] searchQueries = new String[numberOfQueries];
             in.nextLine(); //advance from line w/ int -> need to get to actual line w/ text
             for (int j = 0 ; j < searchQueries.length; j++)
             {
                 String searchQuery = in.nextLine();
                 searchQueries[j] = searchQuery;
-            }
 
-            int minOccurences = searchQueries.length;
-            for (int j = 0; j< searchEngines.length; j++)
-            {
-                String searchEngine = searchEngines[j];
-                int numOccurences = numberOfOccurences(searchEngine, searchQueries);
-                if (numOccurences == 0)
+                //check against searchEngine list -> remove that search engine (if not found already removed - don't care?)
+                    //if search engine list is empty -> switch and repopulate list
+
+                if (searchEngineList.size() > 0)
                 {
-                    minOccurences = numOccurences;
-                    break;
+                    Iterator itr = searchEngineList.iterator();
+                    while (itr.hasNext())
+                    {
+                        if (searchQuery.equals(itr.next()))
+                        {
+                            itr.remove();
+                        }
+                    }
                 }
                 else
                 {
-                    if(numOccurences < minOccurences)
-                    {
-                        minOccurences = numOccurences;
-                    }
+                    numberOfSwitches++;
+                    searchEngineList = new ArrayList<String>(Arrays.asList(searchEngines));
                 }
             }
 
-            System.out.println("Case #" + i + ": " + minOccurences);
-
+            System.out.println("Case #" + i + ": " + numberOfSwitches);
         }
     }
 
-    private static int numberOfOccurences(String searchEngine, String[] searchQueries)
-    {
-        int numberOfOccurences = 0;
-        for (int i = 0; i < searchQueries.length; i++)
-        {
-            if (searchEngine.equals(searchQueries[i]))
-            {
-                numberOfOccurences++;
-            }
-        }
-        return numberOfOccurences;
-    }
+
 }
