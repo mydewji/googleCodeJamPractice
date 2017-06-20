@@ -9,14 +9,14 @@ public class Main
 {
     public static void main(String[] args)
     {
-      Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-//        Scanner in = null;
-//        try
-//        {
-//            in = new Scanner(new File(args[0]));
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+//      Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+        Scanner in = null;
+        try
+        {
+            in = new Scanner(new File(args[0]));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         int testCases = in.nextInt();  // Scanner has functions to read ints, longs, strings, chars, etc.
 
         for (int i = 1; i <= testCases; ++i)
@@ -51,8 +51,12 @@ public class Main
                 if (maxIndex < numberOfQueries)
                 {
                     numberOfSwitches++;
+                    if (maxIndex < searchQueries.length)
+                    {
+                        searchQueries = Arrays.copyOfRange(searchQueries, maxIndex+1, searchQueries.length);
+                    }
                 }
-                searchQueries = Arrays.copyOfRange(searchQueries, maxIndex, searchQueries.length);
+
             }
 
             System.out.println("Case #" + i + ": " + numberOfSwitches);
