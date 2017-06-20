@@ -48,13 +48,12 @@ public class Main
             {
                 maxIndex = getMaxIndexOfSearchEngine (searchEngines, searchQueries);
 
-                if (maxIndex < numberOfQueries)
+                if (maxIndex < searchQueries.length)
                 {
                     numberOfSwitches++;
-                    if (maxIndex < searchQueries.length)
-                    {
-                        searchQueries = Arrays.copyOfRange(searchQueries, maxIndex+1, searchQueries.length);
-                    }
+                    searchQueries = Arrays.copyOfRange(searchQueries, maxIndex+1, searchQueries.length);
+                    maxIndex = 0;
+
                 }
 
             }
@@ -84,7 +83,8 @@ public class Main
             }
             if (!matchFound)
             {
-                return searchQueries.length;
+                //Return max index as last index
+                return searchQueries.length-1;
             }
         }
 
