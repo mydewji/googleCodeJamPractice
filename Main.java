@@ -48,14 +48,13 @@ public class Main
             {
                 maxIndex = getMaxIndexOfSearchEngine (searchEngines, searchQueries);
 
-                if (maxIndex < searchQueries.length)
+                if (maxIndex == -1) //We can finish everything w/ no switches
                 {
-                    numberOfSwitches++;
-                    searchQueries = Arrays.copyOfRange(searchQueries, maxIndex+1, searchQueries.length);
-                    maxIndex = 0;
-
+                    break;
                 }
-
+                    numberOfSwitches++;
+                    searchQueries = Arrays.copyOfRange(searchQueries, maxIndex, searchQueries.length);
+                    maxIndex = 0;
             }
 
             System.out.println("Case #" + i + ": " + numberOfSwitches);
@@ -83,8 +82,7 @@ public class Main
             }
             if (!matchFound)
             {
-                //Return max index as last index
-                return searchQueries.length-1;
+                return -1;
             }
         }
 
