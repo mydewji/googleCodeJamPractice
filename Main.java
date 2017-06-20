@@ -31,10 +31,6 @@ public class Main
             }
 
             int numberOfQueries = in.nextInt();
-            int numberOfSwitches = 0;
-            ArrayList<String> searchEngineList = new ArrayList<String>(Arrays.asList(searchEngines));
-
-
 
             String[] searchQueries = new String[numberOfQueries];
             in.nextLine(); //advance from line w/ int -> need to get to actual line w/ text
@@ -42,28 +38,58 @@ public class Main
             {
                 String searchQuery = in.nextLine();
                 searchQueries[j] = searchQuery;
+            }
 
-                if (searchEngineList.size() > 0)
-                {
-                    Iterator itr = searchEngineList.iterator();
-                    while (itr.hasNext())
-                    {
-                        if (searchQuery.equals(itr.next()))
-                        {
-                            itr.remove();
-                        }
-                    }
-                }
-                else
+
+            int numberOfSwitches = 0;
+            int maxIndex = 0;
+
+            while (maxIndex < searchQueries.length)
+            {
+                maxIndex = getMaxIndexOfSearchEngine (searchEngines, searchQueries);
+
+                if (maxIndex < numberOfQueries)
                 {
                     numberOfSwitches++;
-                    searchEngineList = new ArrayList<String>(Arrays.asList(searchEngines));
                 }
+                searchQueries = Arrays.copyOfRange(searchQueries, maxIndex, searchQueries.length);
             }
 
             System.out.println("Case #" + i + ": " + numberOfSwitches);
         }
     }
+
+    private static int getMaxIndexOfSearchEngine(String[] searchEngines, String[] searchQueries)
+    {
+        int maxIndex = 0;
+        for (int i = 0; i < searchEngines.length; i++)
+        {
+
+            boolean matchFound = false;
+            for (int j = 0; j < searchQueries.length; j++)
+            {
+                if (searchEngines[i].equals(searchQueries[j]))
+                {
+                    matchFound = true;
+                    if (maxIndex < j)
+                    {
+                        maxIndex = j;
+                    }
+                    break;
+                }
+            }
+            if (!matchFound)
+            {
+                return searchQueries.length;
+            }
+        }
+
+
+
+        return maxIndex;
+
+    }
+
 
 
 }
