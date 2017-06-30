@@ -18,7 +18,9 @@ public class Main
 			e.printStackTrace();
 		}
 
-		SavingTheUniverse.savingTheUniverse(in);
+		//SavingTheUniverse.savingTheUniverse(in);
+		MinimumScalarProduct.minimumScalarProduct(in);
 	}
+
 }
 
