@@ -1,6 +1,7 @@
 package com.emmwhydee;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Created by myd on 29/06/17.
@@ -8,25 +9,50 @@ import java.util.Arrays;
 public class SavingTheUniverse
 {
 
-	public static void savingTheUniverse(String[] searchEngines, String[] searchQueries, int testCase)
+	public static void savingTheUniverse(Scanner in)
 	{
-		int numberOfSwitches = 0;
-		int maxIndex = 0;
+		int testCases = in.nextInt();  // Scanner has functions to read ints, longs, strings, chars, etc.
 
-		while (maxIndex < searchQueries.length)
+		for (int i = 1; i <= testCases; ++i)
 		{
-			maxIndex = getMaxIndexOfSearchEngine(searchEngines, searchQueries);
-
-			if (maxIndex == -1) //We can finish everything w/ no switches
+			int numberOfSearchEngines = in.nextInt();
+			String[] searchEngines = new String[numberOfSearchEngines];
+			in.nextLine(); //advance from line w/ int -> need to get to actual line w/ text
+			for (int j = 0 ; j < searchEngines.length; j++)
 			{
-				break;
+				String searchEngine = in.nextLine();
+				searchEngines[j] = searchEngine;
 			}
-			numberOfSwitches++;
-			searchQueries = Arrays.copyOfRange(searchQueries, maxIndex, searchQueries.length);
-			maxIndex = 0;
-		}
 
-		System.out.println("Case #" + testCase + ": " + numberOfSwitches);
+			int numberOfQueries = in.nextInt();
+
+			String[] searchQueries = new String[numberOfQueries];
+			in.nextLine(); //advance from line w/ int -> need to get to actual line w/ text
+			for (int j = 0 ; j < searchQueries.length; j++)
+			{
+				String searchQuery = in.nextLine();
+				searchQueries[j] = searchQuery;
+			}
+
+
+			int numberOfSwitches = 0;
+			int maxIndex = 0;
+
+			while (maxIndex < searchQueries.length)
+			{
+				maxIndex = getMaxIndexOfSearchEngine (searchEngines, searchQueries);
+
+				if (maxIndex == -1) //We can finish everything w/ no switches
+				{
+					break;
+				}
+				numberOfSwitches++;
+				searchQueries = Arrays.copyOfRange(searchQueries, maxIndex, searchQueries.length);
+				maxIndex = 0;
+			}
+
+			System.out.println("Case #" + i + ": " + numberOfSwitches);
+		}
 	}
 
 	private static int getMaxIndexOfSearchEngine(String[] searchEngines, String[] searchQueries)
